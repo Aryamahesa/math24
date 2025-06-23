@@ -1,0 +1,266 @@
+:root {
+    --bg-color: #f0f4f8;
+    --container-bg: #ffffff;
+    --text-color: #333;
+    --subtext-color: #666;
+    --number-bg: #cce7ff; /* Light teal/blue from image */
+    --number-text: #003366;
+    --operator-bg: #ffe0b2; /* Light orange from image */
+    --operator-text: #8c5a03;
+    --control-bg: #e9ecef;
+    --control-text: #495057;
+    --accent-color: #007bff;
+    --correct-color: #28a745;
+    --incorrect-color: #dc3545;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #121212;
+        --container-bg: #1e1e1e;
+        --text-color: #e0e0e0;
+        --subtext-color: #a0a0a0;
+        --number-bg: #004a7c;
+        --number-text: #e0e0e0;
+        --operator-bg: #795548;
+        --operator-text: #ffcc80;
+        --control-bg: #333;
+        --control-text: #e0e0e0;
+        --accent-color: #4dabf7;
+        --shadow-color: rgba(0, 0, 0, 0.4);
+    }
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.game-container {
+    background-color: var(--container-bg);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    transition: background-color 0.3s;
+}
+
+.expression-display {
+    background-color: var(--bg-color);
+    min-height: 50px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    padding: 10px;
+    color: var(--text-color);
+    overflow-x: auto;
+    transition: background-color 0.3s, box-shadow 0.2s;
+}
+
+.expression-display.correct {
+    box-shadow: 0 0 15px var(--correct-color);
+}
+
+.expression-display.incorrect {
+    box-shadow: 0 0 15px var(--incorrect-color);
+    animation: shake 0.5s;
+}
+
+.numbers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.number-card {
+    background-color: var(--number-bg);
+    color: var(--number-text);
+    font-size: 2.5em;
+    font-weight: bold;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s, opacity 0.3s;
+    user-select: none;
+}
+
+.number-card.used {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.operators, .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.operator-btn, .control-btn, .new-game-btn, .hint-btn, .difficulty-btn {
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+    padding: 15px;
+    user-select: none;
+}
+
+.operator-btn {
+    background-color: var(--operator-bg);
+    color: var(--operator-text);
+    width: 60px;
+    height: 60px;
+}
+
+.control-btn {
+    background-color: var(--control-bg);
+    color: var(--control-text);
+    font-size: 1em;
+    flex-grow: 1;
+}
+
+.control-btn.check {
+    background-color: var(--correct-color);
+    color: white;
+    font-size: 1.2em;
+}
+
+.game-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.difficulty-selector {
+    display: flex;
+    background-color: var(--control-bg);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.difficulty-btn {
+    font-size: 0.8em;
+    background-color: transparent;
+    color: var(--subtext-color);
+    padding: 8px 12px;
+}
+
+.difficulty-btn.active {
+    background-color: var(--accent-color);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+.new-game-btn, .hint-btn {
+    background-color: var(--accent-color);
+    color: white;
+    font-size: 0.9em;
+    padding: 10px 15px;
+}
+
+button:active, .number-card:active {
+    transform: scale(0.95);
+}
+
+.status {
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 25px;
+    margin-top: 15px;
+}
+
+.status.correct { color: var(--correct-color); }
+.status.incorrect { color: var(--incorrect-color); }
+
+/* Onboarding Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 0.3s, opacity 0.3s;
+}
+.overlay.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+.overlay-content {
+    background-color: var(--container-bg);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 350px;
+}
+.overlay-content h2 { margin-top: 0; }
+.overlay-content button {
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+#confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* ... (semua CSS sebelumnya) ... */
+
+/* Tambahkan di akhir file */
+.number-card.selected {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px var(--accent-color);
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.number-card.hide {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}

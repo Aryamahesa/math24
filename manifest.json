@@ -1,0 +1,21 @@
+{
+    "name": "Permainan Math 24",
+    "short_name": "Math 24",
+    "description": "Sebuah permainan puzzle matematika untuk menemukan solusi 24.",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#f0f4f8",
+    "theme_color": "#1e1e1e",
+    "icons": [
+        {
+            "src": "images/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
