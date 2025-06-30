@@ -1,13 +1,13 @@
-const CACHE_NAME = 'math24-cache-v1';
+const CACHE_NAME = 'math24-cache-v2'; // Ubah versi cache
 const urlsToCache = [
     '.',
     'index.html',
+    'levels.html',   // TAMBAHKAN INI
+    'game.html',     // TAMBAHKAN INI
     'style.css',
     'script.js',
     'manifest.json',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
-    'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js'
-    // Tambahkan path ke ikon Anda di sini, contoh: '/images/icon-192.png'
+    // ... sisa URL lainnya
 ];
 
 self.addEventListener('install', event => {

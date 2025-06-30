@@ -3,9 +3,9 @@
     --container-bg: #ffffff;
     --text-color: #333;
     --subtext-color: #666;
-    --number-bg: #cce7ff; /* Light teal/blue from image */
+    --number-bg: #cce7ff;
     --number-text: #003366;
-    --operator-bg: #ffe0b2; /* Light orange from image */
+    --operator-bg: #ffe0b2;
     --operator-text: #8c5a03;
     --control-bg: #e9ecef;
     --control-text: #495057;
@@ -41,20 +41,157 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.game-container {
+.view-container {
     background-color: var(--container-bg);
     padding: 25px;
     border-radius: 20px;
     box-shadow: 0 8px 25px var(--shadow-color);
-    text-align: center;
     width: 90%;
-    max-width: 400px;
-    transition: background-color 0.3s;
+    max-width: 480px;
+    text-align: center;
 }
 
+/* ====================================================== */
+/* STYLING HEADER (BAGIAN YANG DIPERBAIKI)       */
+/* ====================================================== */
+
+/* 1. Gaya Header Umum */
+.view-header {
+    position: relative; /* Penting untuk positioning tombol kembali */
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/* 2. Gaya Header untuk Halaman Kategori & Level (Judul di Tengah) */
+#category-select-container .view-header,
+#level-select-container .view-header {
+    justify-content: center; /* Membuat judul (h1) berada di tengah */
+}
+
+/* 3. Gaya Header untuk Halaman Game (Layout Kiri, Tengah, Kanan) */
+#game-container .view-header {
+    justify-content: space-between; /* Mendorong item ke tepi */
+}
+
+/* 4. Gaya Tombol Kembali yang Konsisten */
+.view-header .back-btn {
+    position: absolute; /* Tombol kembali selalu di kiri header */
+    left: 0;
+    
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    background: none;
+    border: none;
+    color: var(--subtext-color);
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none;
+}
+/* Khusus untuk halaman game, kita tidak perlu absolute positioning */
+#game-container .view-header .back-btn {
+    position: static; /* Override agar mengikuti alur flexbox */
+}
+
+
+/* 5. Gaya Judul Header */
+.view-header h1, .view-header h2 {
+    margin: 0;
+    color: var(--text-color);
+    text-align: center;
+    flex-grow: 1; /* Memastikan judul mengambil ruang yang tersedia */
+}
+
+/* 6. Elemen Bantu untuk Keseimbangan di Halaman Game */
+.header-spacer {
+    width: 75px; /* Sesuaikan agar seimbang dengan lebar tombol kembali */
+    flex-shrink: 0;
+}
+
+
+/* ====================================================== */
+/* STYLING KONTEN LAINNYA                */
+/* ====================================================== */
+
+/* Kategori */
+.category-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.category-btn {
+    background-color: var(--number-bg);
+    color: var(--number-text);
+    border: 2px solid transparent;
+    border-radius: 15px;
+    padding: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+}
+.category-btn:hover {
+    transform: scale(1.02);
+    border-color: var(--accent-color);
+}
+.category-btn .progress-text {
+    font-size: 0.6em;
+    font-weight: normal;
+    color: var(--subtext-color);
+}
+
+/* Level */
+.level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 15px;
+}
+.level-btn {
+    background-color: var(--number-bg);
+    color: var(--number-text);
+    border: none;
+    font-size: 1.5em;
+    font-weight: bold;
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+.level-btn:hover {
+    transform: scale(1.05);
+}
+.level-btn.completed {
+    background-color: var(--correct-color);
+    color: white;
+}
+.level-btn.completed i {
+    font-size: 0.8em;
+    margin-left: 5px;
+}
+.level-btn.locked {
+    background-color: var(--control-bg);
+    color: var(--subtext-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.level-btn.locked:hover {
+    transform: none;
+}
+
+/* Game */
 .expression-display {
     background-color: var(--bg-color);
     min-height: 50px;
@@ -66,27 +203,13 @@ body {
     font-size: 1.8em;
     font-weight: bold;
     padding: 10px;
-    color: var(--text-color);
-    overflow-x: auto;
-    transition: background-color 0.3s, box-shadow 0.2s;
 }
-
-.expression-display.correct {
-    box-shadow: 0 0 15px var(--correct-color);
-}
-
-.expression-display.incorrect {
-    box-shadow: 0 0 15px var(--incorrect-color);
-    animation: shake 0.5s;
-}
-
 .numbers-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     margin-bottom: 20px;
 }
-
 .number-card {
     background-color: var(--number-bg);
     color: var(--number-text);
@@ -98,169 +221,67 @@ body {
     align-items: center;
     border-radius: 15px;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s, opacity 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.3s;
     user-select: none;
 }
-
-.number-card.used {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-.operators, .controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.operator-btn, .control-btn, .new-game-btn, .hint-btn, .difficulty-btn {
-    border: none;
-    border-radius: 10px;
-    font-size: 1.5em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
-    padding: 15px;
-    user-select: none;
-}
-
-.operator-btn {
-    background-color: var(--operator-bg);
-    color: var(--operator-text);
-    width: 60px;
-    height: 60px;
-}
-
-.control-btn {
-    background-color: var(--control-bg);
-    color: var(--control-text);
-    font-size: 1em;
-    flex-grow: 1;
-}
-
-.control-btn.check {
-    background-color: var(--correct-color);
-    color: white;
-    font-size: 1.2em;
-}
-
-.game-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.difficulty-selector {
-    display: flex;
-    background-color: var(--control-bg);
-    border-radius: 10px;
-    padding: 5px;
-}
-
-.difficulty-btn {
-    font-size: 0.8em;
-    background-color: transparent;
-    color: var(--subtext-color);
-    padding: 8px 12px;
-}
-
-.difficulty-btn.active {
-    background-color: var(--accent-color);
-    color: white;
-    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
-}
-
-.new-game-btn, .hint-btn {
-    background-color: var(--accent-color);
-    color: white;
-    font-size: 0.9em;
-    padding: 10px 15px;
-}
-
-button:active, .number-card:active {
-    transform: scale(0.95);
-}
-
-.status {
-    font-size: 1.1em;
-    font-weight: bold;
-    height: 25px;
-    margin-top: 15px;
-}
-
-.status.correct { color: var(--correct-color); }
-.status.incorrect { color: var(--incorrect-color); }
-
-/* Onboarding Overlay */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s 0.3s, opacity 0.3s;
-}
-.overlay.visible {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.3s;
-}
-.overlay-content {
-    background-color: var(--container-bg);
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    max-width: 350px;
-}
-.overlay-content h2 { margin-top: 0; }
-.overlay-content button {
-    padding: 10px 20px;
-    background-color: var(--accent-color);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    cursor: pointer;
-}
-
-/* Animations */
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-  20%, 40%, 60%, 80% { transform: translateX(5px); }
-}
-
-#confetti-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-/* ... (semua CSS sebelumnya) ... */
-
-/* Tambahkan di akhir file */
 .number-card.selected {
     transform: scale(1.1);
     box-shadow: 0 0 20px var(--accent-color);
     background-color: var(--accent-color);
     color: white;
 }
+.operators, .controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.operator-btn, .control-btn {
+    border: none;
+    border-radius: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 15px;
+}
+.operator-btn {
+    background-color: var(--operator-bg);
+    color: var(--operator-text);
+    width: 60px; height: 60px;
+}
+.control-btn {
+    background-color: var(--control-bg);
+    color: var(--control-text);
+    font-size: 1em;
+    flex-grow: 1;
+}
+button:active, .number-card:active, .level-btn:active, .category-btn:active {
+    transform: scale(0.95);
+}
+.hint-btn {
+     background-color: var(--accent-color);
+     color: white;
+     border:none;
+     border-radius:10px;
+     padding:12px;
+     width:100%;
+     margin-top:10px;
+     font-size:1em;
+     cursor:pointer;
+}
+.status {
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 25px;
+    margin-top: 15px;
+}
+.status.correct { color: var(--correct-color); }
+.status.incorrect { color: var(--incorrect-color); }
 
-.number-card.hide {
-    transform: scale(0);
-    opacity: 0;
-    pointer-events: none;
+/* Animasi */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math 24 - Game</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div id="game-container" class="view-container">
+       <header class="view-header">
+            <a id="back-to-levels-btn" href="#" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+            <h2 id="level-title">Memuat...</h2>
+            <div class="header-spacer"></div>
+        </header>
+        <div id="expression-display" class="expression-display"></div>
+        <div id="numbers-grid" class="numbers-grid"></div>
+        <div id="operators" class="operators">
+            <button class="operator-btn" data-value="+">+</button>
+            <button class="operator-btn" data-value="-">-</button>
+            <button class="operator-btn" data-value="*">×</button>
+            <button class="operator-btn" data-value="/">÷</button>
+        </div>
+        <div class="controls">
+            <button id="undo-btn" class="control-btn"><i class="fas fa-undo"></i> Mundur</button>
+            <button id="clear-btn" class="control-btn"><i class="fas fa-trash"></i> Ulangi</button>
+        </div>
+        <button id="hint-btn" class="hint-btn"><i class="fas fa-lightbulb"></i> Bantuan</button>
+        <p id="status-message" class="status"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
