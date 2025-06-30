@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // === DATA & STATE (Bisa diakses oleh semua halaman) ===
     const levelData = {
         "Beginner": [
-            { numbers: [1, 2, 3, 4], solution: "(1+2+3)*4" }, { numbers: [2, 3, 4, 6], solution: "6*4*(3-2)" },
-            { numbers: [1, 1, 5, 5], solution: "5*(5-1/1)" },  { numbers: [1, 4, 1, 6], solution: "1*4*1*6" },
-            { numbers: [4, 2, 1, 3], solution: "4*2*3/1" },   { numbers: [3, 5, 6, 7], solution: "(6-5)+7*3" },
-            { numbers: [4, 4, 4, 6], solution: "4/4*4*6" },   { numbers: [1, 3, 6, 8], solution: "(6-3)*8*1" },
-            { numbers: [3, 4, 5, 6], solution: "(5-4+3)*6" }, { numbers: [1, 1, 2, 12], solution: "1*1*2*12" }
+            { numbers: [1, 2, 3, 4], solution: "(1+2+3)x4" }, { numbers: [2, 3, 4, 6], solution: "6x4x(3-2)" },
+            { numbers: [1, 1, 5, 5], solution: "5x(5-1/1)" },  { numbers: [1, 4, 1, 6], solution: "1x4x1x6" },
+            { numbers: [4, 2, 1, 3], solution: "4x2x3/1" },   { numbers: [3, 5, 6, 7], solution: "(6-5)+7x3" },
+            { numbers: [4, 4, 4, 6], solution: "4/4x4x6" },   { numbers: [1, 3, 6, 8], solution: "(6-3)x8x1" },
+            { numbers: [3, 4, 5, 6], solution: "(5-4+3)x6" }, { numbers: [1, 1, 2, 12], solution: "1x1x2x12" }
         ],
         "Junior": [
             { numbers: [3, 3, 8, 8], solution: "8/(3-8/3)" },   { numbers: [1, 5, 5, 5], solution: "5*(5-1/5)" },
