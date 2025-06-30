@@ -3,60 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Permainan Math 24</title>
-    
+    <title>Math 24 - Pilih Kategori</title>
     <link rel="manifest" href="manifest.json">
-    
-    <meta name="theme-color" content="#f0f4f8"/>
-
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
-    <div class="game-container">
-        <div id="expression-display" class="expression-display"></div>
-
-        <div id="numbers-grid" class="numbers-grid">
+    <div id="category-select-container" class="view-container">
+        <header class="view-header">
+            <h1>Math 24</h1>
+        </header>
+        <div id="category-list" class="category-list">
             </div>
-
-        <div id="operators" class="operators">
-            <button class="operator-btn" data-value="+">+</button>
-            <button class="operator-btn" data-value="-">-</button>
-            <button class="operator-btn" data-value="*">×</button>
-            <button class="operator-btn" data-value="/">÷</button>
-        </div>
-
-        <div class="controls">
-            <button id="undo-btn" class="control-btn"><i class="fas fa-undo"></i> Mundur</button>
-            <button id="clear-btn" class="control-btn"><i class="fas fa-trash"></i> Hapus</button>
-            <button id="check-btn" class="control-btn check"><i class="fas fa-check"></i> Cek</button>
-        </div>
-
-        <div class="game-actions">
-            <div class="difficulty-selector">
-                <button class="difficulty-btn active" data-difficulty="easy">Mudah</button>
-                <button class="difficulty-btn" data-difficulty="hard">Sulit</button>
-            </div>
-            <button id="new-game-btn" class="new-game-btn">Permainan Baru</button>
-            <button id="hint-btn" class="hint-btn"><i class="fas fa-lightbulb"></i></button>
-        </div>
-        
-        <p id="status-message" class="status"></p>
     </div>
-
-    <div id="onboarding-overlay" class="overlay">
-        <div class="overlay-content">
-            <h2>Selamat Datang di Math 24!</h2>
-            <p>Gunakan 4 angka yang diberikan dan semua operator (+, -, ×, ÷) untuk mendapatkan hasil tepat 24.</p>
-            <button id="close-onboarding">Mengerti!</button>
-        </div>
-    </div>
-    
-    <div id="confetti-container"></div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
