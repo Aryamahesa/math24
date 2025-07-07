@@ -2,12 +2,11 @@ const CACHE_NAME = 'math24-cache-v2'; // Ubah versi cache
 const urlsToCache = [
     '.',
     'index.html',
-    'levels.html',   // TAMBAHKAN INI
-    'game.html',     // TAMBAHKAN INI
+    'levels.html',   
+    'game.html',     
     'style.css',
     'script.js',
-    'manifest.json',
-    // ... sisa URL lainnya
+    'manifest.json'
 ];
 
 self.addEventListener('install', event => {
