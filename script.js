@@ -1,3 +1,18 @@
+// === PENDAFTARAN SERVICE WORKER ===
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js') // Sesuaikan path jika perlu
+            .then(registration => {
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(err => {
+                console.log('ServiceWorker registration failed: ', err);
+            });
+    });
+}
+// ===================================
+
+
 document.addEventListener('DOMContentLoaded', () => {
     // === DATA & STATE (Bisa diakses oleh semua halaman) ===
     const levelData = {
@@ -187,7 +202,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function displayMessage(msg, type) { statusMessage.textContent = msg; statusMessage.className = `status ${type}`; }
-        function triggerConfetti() { confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } }); }
+        function triggerConfetti() { 
+            if(typeof confetti === 'function') {
+                confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } }); 
+            }
+        }
 
         // === Event Listeners khusus halaman game ===
         numbersGrid.addEventListener('click', (e) => {
