@@ -1,4 +1,4 @@
-const CACHE_NAME = 'math24-cache-v2'; // Ubah versi cache
+const CACHE_NAME = 'math24-cache-v2'; // Ubah versi cache jika ada perubahan besar
 const urlsToCache = [
     '.',
     'index.html',
@@ -6,7 +6,10 @@ const urlsToCache = [
     'game.html',     
     'style.css',
     'script.js',
-    'manifest.json'
+    'manifest.json',
+    // === FILE EKSTERNAL YANG DITAMBAHKAN ===
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
+    'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js'
 ];
 
 self.addEventListener('install', event => {
@@ -14,7 +17,9 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => {
                 console.log('Opened cache');
-                return cache.addAll(urlsToCache);
+                // Gunakan {cache: 'reload'} agar selalu mengambil versi terbaru dari jaringan saat instalasi
+                const requests = urlsToCache.map(url => new Request(url, {cache: 'reload'}));
+                return cache.addAll(requests);
             })
     );
 });
@@ -27,7 +32,12 @@ self.addEventListener('fetch', event => {
                 if (response) {
                     return response;
                 }
-                return fetch(event.request);
+                // Jika tidak ada di cache, coba ambil dari jaringan
+                return fetch(event.request).then(
+                    (networkResponse) => {
+                        return networkResponse;
+                    }
+                );
             }
         )
     );
